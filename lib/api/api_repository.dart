@@ -26,8 +26,8 @@ class ApiRepository {
     return null;
   }
 
-  Future<UsersResponse?> getUsers() async {
-    final res = await apiProvider.getUsers('/students/list');
+  Future<UsersResponse?> getStudents() async {
+    final res = await apiProvider.getStudents('/students/list');
     if (res.statusCode == 200) {
       return UsersResponse.fromJson(res.body);
     }

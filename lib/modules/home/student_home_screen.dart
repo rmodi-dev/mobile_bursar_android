@@ -3,10 +3,30 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:mobile_bursar_android/shared/shared.dart';
 
+import '../../api/api_provider.dart';
+import '../../api/api_repository.dart';
 import '../home/student_home_controller.dart';
 
-class StudentHomeScreen extends GetView<StudentHomeController> {
+class StudentHomeScreen extends StatefulWidget {
   const StudentHomeScreen({super.key});
+
+  @override
+  StudentHomeScreenState createState() => StudentHomeScreenState();
+}
+
+class StudentHomeScreenState extends State<StudentHomeScreen> {
+  late final ApiRepository apiRepository;
+  late final ApiProvider apiProvider;
+  late StudentHomeController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    apiProvider = ApiProvider();
+    apiRepository = ApiRepository(apiProvider: apiProvider);
+    controller =
+        Get.arguments ?? StudentHomeController(apiRepository: apiRepository);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,34 +40,17 @@ class StudentHomeScreen extends GetView<StudentHomeController> {
     return Scaffold(
       appBar: AppBar(title: const Text('Students Home')),
       body: Center(
-        child: _buildContent(controller),
+        child: _buildContent(context),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           _buildNavigationBarItem(
-            "Home",
-            "icon_home.svg",
-            // MainTabs.home == controller.isLoading.value
-            //     ? "icon_home_activated.svg"
-            //     : "icon_home.svg",
-          ),
-          _buildNavigationBarItem(
-            "Discover",
-            "icon_discover.svg",
-            // MainTabs.discover == controller.students.isEmpty
-            //     ? "icon_discover_activated.svg"
-            //     : "icon_discover.svg",
-          ),
-          _buildNavigationBarItem(
-            "Resource",
+            "Payments",
             "icon_resource.svg",
           ),
           _buildNavigationBarItem(
-            "Inbox",
-            "icon_inbox.svg",
-            // MainTabs.inbox == controller.students.length
-            //     ? "icon_inbox_activated.svg"
-            //     : "icon_inbox.svg",
+            "Finance",
+            "icon_finance.svg",
           ),
           _buildNavigationBarItem(
             "Profile",
@@ -55,6 +58,10 @@ class StudentHomeScreen extends GetView<StudentHomeController> {
             // MainTabs.me == controller.students[index]
             //     ? "icon_me_activated.svg"
             //     : "icon_me.svg",
+          ),
+          _buildNavigationBarItem(
+            "Logout",
+            "icon_sign_out.svg",
           )
         ],
         type: BottomNavigationBarType.fixed,
@@ -71,7 +78,7 @@ class StudentHomeScreen extends GetView<StudentHomeController> {
     );
   }
 
-  Widget _buildContent(controller) {
+  Widget _buildContent(BuildContext context) {
     if (controller.isLoading.value) {
       return const Center(child: CircularProgressIndicator());
     } else if (controller.students.isEmpty) {

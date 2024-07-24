@@ -1,20 +1,27 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_bursar_android/api/api.dart';
 
 class StudentService {
-  final String baseUrl = ApiConstants.baseUrl;
+  final String baseUrl;
+  final http.Client client;
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
+  StudentService({http.Client? client, this.baseUrl = ApiConstants.baseUrl})
+      : client = client ?? http.Client();
+
   Future<List<dynamic>> getStudents() async {
+    // debugPrint('Url: ${request.method} ${request.url}\n');
+    debugPrint('Called getStudents.');
     final token = await secureStorage.read(key: 'authToken');
     final response = await http.get(
       Uri.parse('$baseUrl/students/list'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $token',
+        'x-access-token': '$token',
       },
     );
 
@@ -23,5 +30,13 @@ class StudentService {
     } else {
       throw Exception('Failed to load students');
     }
+  }
+
+  Future<String?> getToken() async {
+    return await secureStorage.read(key: 'authToken');
+  }
+
+  Future<void> deleteToken() async {
+    await secureStorage.delete(key: 'authToken');
   }
 }

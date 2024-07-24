@@ -9,11 +9,11 @@
             <g id="HomeNavigation" transform="translate(0.000000, 817.000000)">
                 <g id="icon_me" transform="translate(358.850024, 32.680000)">
                     <rect id="Base" x="0" y="0" width="19.2" height="19.2"></rect>
-                    <mask id="mask-2" fill="white">
+                    <mask id="mask-2" fill="#3CD7BA">
                         <use xlink:href="#path-1"></use>
                     </mask>
-                    <use id="Shape" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
-                    <g id="Grouping" mask="url(#mask-2)" fill="#2D2D2D">
+                    <use id="Shape" fill="#3CD7BA" fill-rule="nonzero" xlink:href="#path-1"></use>
+                    <g id="Grouping" mask="url(#mask-2)" fill="#3CD7BA">
                         <g id="Color/02">
                             <rect id="Color" x="0" y="0" width="19.2" height="19.2"></rect>
                         </g>

@@ -11,7 +11,7 @@ class ApiProvider extends BaseProvider {
     return post(path, data.toJson());
   }
 
-  Future<Response> getUsers(String path) {
+  Future<Response> getStudents(String path) {
     return get(path);
   }
 }
