@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_bursar_android/api/api.dart';
@@ -14,8 +13,6 @@ class StudentService {
       : client = client ?? http.Client();
 
   Future<List<dynamic>> getStudents() async {
-    // debugPrint('Url: ${request.method} ${request.url}\n');
-    debugPrint('Called getStudents.');
     final token = await secureStorage.read(key: 'authToken');
     final response = await http.get(
       Uri.parse('$baseUrl/students/list'),

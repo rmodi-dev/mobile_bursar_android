@@ -81,7 +81,7 @@ class AuthScreen extends GetView<AuthController> {
         ),
         const SizedBox(height: 62.0),
         Text(
-          'By Robert Modi@PowellPay',
+          'Robert Modi | PowellPay',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: CommonConstants.smallText,

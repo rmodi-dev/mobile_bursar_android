@@ -29,7 +29,7 @@ class SplashScreen extends StatelessWidget {
             size: 48.0,
           ),
           const Text(
-            'Mobile Bursar ...',
+            'Mobile Bursar Loading ...',
             style: TextStyle(fontSize: 16.0),
           ),
         ],

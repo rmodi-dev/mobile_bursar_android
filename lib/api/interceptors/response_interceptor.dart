@@ -11,6 +11,7 @@ FutureOr<dynamic> responseInterceptor(
     Request request, Response response) async {
   EasyLoading.dismiss();
   responseLogger(response);
+
   if (!response.statusCode.toString().contains('20')) {
     handleErrorStatus(response);
     return;

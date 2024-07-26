@@ -1,13 +1,17 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mobile_bursar_android/models/models.dart';
-import 'package:mobile_bursar_android/models/response/users_response.dart';
 
+import '../modules/home/student_home_controller.dart';
 import 'api.dart';
 
 class ApiRepository {
-  ApiRepository({required this.apiProvider});
   final ApiProvider apiProvider;
+  final Dio dio;
+
+  ApiRepository({required this.apiProvider, required this.dio});
 
   Future<LoginResponse?> login(LoginRequest data) async {
     final res = await apiProvider.login('/auth/login', data);
@@ -25,11 +29,28 @@ class ApiRepository {
     return null;
   }
 
-  Future<UsersResponse?> getStudents() async {
+  Future<List<Student>> getStudents() async {
     final res = await apiProvider.getStudents('/students/list');
     if (res.statusCode == 200) {
-      return UsersResponse.fromJson(res.body);
+      // List<dynamic> data = res.body['data'];
+      debugPrint('Response body: ${res.body}');
+      List<dynamic> data = res.body['data'];
+      return data.map((json) => Student.fromJson(json)).toList();
+      // return res.body['data'].map((json) => Student.fromJson(json)).toList();
+    } else {
+      debugPrint('API repository failed to get students');
+      throw Exception('Failed to get students');
     }
-    return null;
   }
+
+  // Future<List<Student>> getStudents() async {
+  //   const baseUrl = ApiConstants.baseUrl;
+  //   final response = await dio.get('$baseUrl/students/list');
+  //   if (response.statusCode == 200) {
+  //     List<dynamic> data = response.data;
+  //     return data.map((json) => Student.fromJson(json)).toList();
+  //   } else {
+  //     throw Exception('Failed to load students');
+  //   }
+  // }
 }

@@ -10,7 +10,7 @@ class SplashController extends GetxController {
   void onReady() async {
     super.onReady();
 
-    await Future.delayed(const Duration(milliseconds: 2000));
+    await Future.delayed(const Duration(milliseconds: 1500));
 
     try {
       String isValidToken = await _authService.checkToken();

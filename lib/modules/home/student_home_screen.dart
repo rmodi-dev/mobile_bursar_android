@@ -1,30 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:mobile_bursar_android/modules/home/student_home_controller.dart';
 import 'package:mobile_bursar_android/shared/shared.dart';
-
-import '../home/student_home_controller.dart';
 
 class StudentHomeScreen extends GetView<StudentHomeController> {
   const StudentHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final BuildContext inheritedContext = context;
-
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (didPop) {},
-      child: Obx(() => _buildWidget(inheritedContext)),
-    );
-  }
-
-  Widget _buildWidget(BuildContext inheritedContext) {
     return Scaffold(
       appBar: AppBar(title: const Text('Students Home')),
-      body: Center(
-        child: _buildContent(inheritedContext),
-      ),
+      body: Obx(() {
+        return _buildContent(context);
+      }),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           _buildNavigationBarItem(
@@ -55,8 +44,11 @@ class StudentHomeScreen extends GetView<StudentHomeController> {
           fontSize: 14,
           fontWeight: FontWeight.bold,
         ),
-        onTap: (index) {},
-        // onTap: (index) => controller.switchTab(index),
+        onTap: (index) {
+          if (index == 3) {
+            _logout();
+          }
+        },
       ),
     );
   }
@@ -72,10 +64,12 @@ class StudentHomeScreen extends GetView<StudentHomeController> {
           itemBuilder: (context, index) {
             final student = controller.students[index];
             return Card(
+              // color: Colors.white,
+              color: const Color(0xFF8C9EFF),
               margin: const EdgeInsets.all(8.0),
               child: ListTile(
-                title: Text(student['firstName'] + ' ' + student['lastName']),
-                subtitle: Text('Class: ${student['currentClass']}'),
+                title: Text('${student.firstName} ${student.lastName}'),
+                subtitle: Text('Class: ${student.currentClass}'),
               ),
             );
           });
@@ -87,5 +81,9 @@ class StudentHomeScreen extends GetView<StudentHomeController> {
       icon: SvgPicture.asset('assets/svgs/$svg'),
       label: label,
     );
+  }
+
+  void _logout() {
+    Get.offAllNamed('/login');
   }
 }
