@@ -7,12 +7,11 @@ import 'api.dart';
 
 class ApiRepository {
   ApiRepository({required this.apiProvider});
-
   final ApiProvider apiProvider;
 
   Future<LoginResponse?> login(LoginRequest data) async {
     final res = await apiProvider.login('/auth/login', data);
-    if (res.statusCode == 200) {
+    if (res.statusCode.toString().contains('20')) {
       return LoginResponse.fromJson(res.body);
     }
     return null;

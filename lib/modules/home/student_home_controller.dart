@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:mobile_bursar_android/api/api.dart';
+import 'package:mobile_bursar_android/models/response/users_response.dart';
 import 'package:mobile_bursar_android/services/student_service.dart';
 
 class StudentHomeController extends GetxController {
@@ -7,20 +8,22 @@ class StudentHomeController extends GetxController {
   final ApiRepository apiRepository;
   StudentHomeController({required this.apiRepository});
 
-  var students = <dynamic>[].obs;
   var isLoading = true.obs;
+  var students = [].obs;
 
   @override
-  void onInit() async {
-    fetchStudents();
+  void onInit() {
     super.onInit();
+    fetchStudents();
   }
 
-  void fetchStudents() async {
+  Future<UsersResponse?> fetchStudents() async {
+    isLoading(true);
     try {
-      isLoading(true);
-      var studentList = await studentService.getStudents();
-      students.assignAll(studentList);
+      var students = await apiRepository.getStudents();
+      return students;
+      // var fetchedStudents = await apiRepository.getStudents();
+      // students.assignAll(fetchedStudents as Iterable);
     } finally {
       isLoading(false);
     }

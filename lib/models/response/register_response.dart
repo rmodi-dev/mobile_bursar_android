@@ -1,27 +1,32 @@
 import 'dart:convert';
 
 class RegisterResponse {
+  final String status;
+  final String message;
+
   RegisterResponse({
-    required this.success,
+    required this.status,
     required this.message,
   });
 
-  bool success;
-  String message;
+  factory RegisterResponse.fromJson(Map<String, dynamic> json) {
+    return RegisterResponse(
+      status: json['status'] ?? '',
+      message: json['message'] ?? '',
+    );
+  }
 
-  factory RegisterResponse.fromRawJson(String str) =>
-      RegisterResponse.fromJson(json.decode(str));
+  factory RegisterResponse.fromRawJson(Map<String, dynamic> json) {
+    return RegisterResponse(
+      status: json['status'] ?? '',
+      message: json['message'] ?? '',
+    );
+  }
 
   String toRawJson() => json.encode(toJson());
 
-  factory RegisterResponse.fromJson(Map<String, dynamic> json) =>
-      RegisterResponse(
-        success: json["success"],
-        message: json["message"],
-      );
-
   Map<String, dynamic> toJson() => {
-        "success": success,
+        "status": status,
         "message": message,
       };
 }

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mobile_bursar_android/shared/shared.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../routes/app_pages.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -7,13 +11,13 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    // return Container(
-    //   Child: Column(
-    //     Children: [
-    //
-    //     ]
-    //   )
-    // )
+    _checkAuthentication();
+    // return const Scaffold(
+    //   body: Center(
+    //     child: CircularProgressIndicator(),
+    //   ),
+    // );
+
     return Container(
       color: Colors.white,
       child: Column(
@@ -31,5 +35,16 @@ class SplashScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+void _checkAuthentication() async {
+  final prefs = await SharedPreferences.getInstance();
+  final token = prefs.getString('authToken');
+
+  if (token != null) {
+    Get.offNamed(Routes.studentsHome);
+  } else {
+    Get.offNamed(Routes.auth);
   }
 }

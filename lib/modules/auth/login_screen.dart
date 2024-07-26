@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:mobile_bursar_android/modules/auth/auth_controller.dart';
 import 'package:mobile_bursar_android/modules/home/student_home_screen.dart';
@@ -17,6 +18,7 @@ class LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   final AuthService _authService = AuthService();
   final AuthController controller = Get.arguments;
+  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -103,18 +105,21 @@ class LoginScreenState extends State<LoginScreen> {
     try {
       final response = await _authService.login(userName, password);
       if (response['token']) {
+        await secureStorage.write(key: 'token', value: response['token']);
+        debugPrint('Login screen login successful!');
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Login successful')),
         );
-        // Get.lazyPut(() => StudentHomeController());
         // Navigate to StudentListScreen using GetX
         Get.off(() => const StudentHomeScreen());
       } else {
+        debugPrint('Login screen login failed!');
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Login failed')),
         );
       }
     } catch (e) {
+      debugPrint('Login screen login caught an error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Login failed: $e')),
       );

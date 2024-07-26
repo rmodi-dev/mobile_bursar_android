@@ -11,7 +11,7 @@ FutureOr<dynamic> responseInterceptor(
     Request request, Response response) async {
   EasyLoading.dismiss();
   responseLogger(response);
-  if (response.statusCode != 200) {
+  if (!response.statusCode.toString().contains('20')) {
     handleErrorStatus(response);
     return;
   }
@@ -20,13 +20,15 @@ FutureOr<dynamic> responseInterceptor(
 }
 
 void handleErrorStatus(Response response) {
-  switch (response.statusCode) {
-    case 400:
-      final message = ErrorResponse.fromJson(response.body);
-      CommonWidget.toast(message.error);
-      break;
-    default:
-  }
+  final message = ErrorResponse.fromJson(response.body);
+  CommonWidget.toast(message.error);
+  // switch (response.statusCode) {
+  //   case 400:
+  //     final message = ErrorResponse.fromJson(response.body);
+  //     CommonWidget.toast(message.error);
+  //     break;
+  //   default:
+  // }
 
   return;
 }

@@ -9,11 +9,11 @@ class AuthScreen extends GetView<AuthController> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {},
       child: Scaffold(
-        backgroundColor:
-            const Color(0xFF05F2FF), // Set the background color here
+        backgroundColor: const Color(0xFF3CD7BA), //Background color
 
         // backgroundColor: Colors.cyanAccent,
 

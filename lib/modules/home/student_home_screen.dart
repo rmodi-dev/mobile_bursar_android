@@ -3,44 +3,27 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:mobile_bursar_android/shared/shared.dart';
 
-import '../../api/api_provider.dart';
-import '../../api/api_repository.dart';
 import '../home/student_home_controller.dart';
 
-class StudentHomeScreen extends StatefulWidget {
+class StudentHomeScreen extends GetView<StudentHomeController> {
   const StudentHomeScreen({super.key});
 
   @override
-  StudentHomeScreenState createState() => StudentHomeScreenState();
-}
-
-class StudentHomeScreenState extends State<StudentHomeScreen> {
-  late final ApiRepository apiRepository;
-  late final ApiProvider apiProvider;
-  late StudentHomeController controller;
-
-  @override
-  void initState() {
-    super.initState();
-    apiProvider = ApiProvider();
-    apiRepository = ApiRepository(apiProvider: apiProvider);
-    controller =
-        Get.arguments ?? StudentHomeController(apiRepository: apiRepository);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Obx(() => _buildWidget()),
+    final BuildContext inheritedContext = context;
+
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {},
+      child: Obx(() => _buildWidget(inheritedContext)),
     );
   }
 
-  Widget _buildWidget() {
+  Widget _buildWidget(BuildContext inheritedContext) {
     return Scaffold(
       appBar: AppBar(title: const Text('Students Home')),
       body: Center(
-        child: _buildContent(context),
+        child: _buildContent(inheritedContext),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
@@ -82,7 +65,7 @@ class StudentHomeScreenState extends State<StudentHomeScreen> {
     if (controller.isLoading.value) {
       return const Center(child: CircularProgressIndicator());
     } else if (controller.students.isEmpty) {
-      return const Center(child: Text('No students found'));
+      return const Center(child: Text('No students returned'));
     } else {
       return ListView.builder(
           itemCount: controller.students.length,
