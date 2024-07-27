@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
-
-import '../../modules/auth/auth_controller.dart';
+import 'package:mobile_bursar_android/modules/auth/auth_controller.dart';
 
 FutureOr<Request> requestInterceptor(request) async {
   final token = await Get.find<AuthController>().readStoredToken();

@@ -10,7 +10,8 @@ class BorderButton extends StatelessWidget {
   final double _radius;
   final Color backgroundColor;
 
-  BorderButton({super.key, 
+  BorderButton({
+    super.key,
     double strokeWidth = 1,
     double radius = 22,
     Gradient? gradient,
@@ -80,12 +81,10 @@ class _GradientPainter extends CustomPainter {
   final Gradient gradient;
 
   _GradientPainter({
-    required double strokeWidth,
-    required double radius,
-    required Gradient gradient,
-  })   : strokeWidth = strokeWidth,
-        radius = radius,
-        gradient = gradient;
+    required this.strokeWidth,
+    required this.radius,
+    required this.gradient,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {

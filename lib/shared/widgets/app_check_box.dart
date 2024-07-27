@@ -10,14 +10,14 @@ class AppCheckbox extends StatefulWidget {
   const AppCheckbox({super.key, this.label, this.checked, this.onChecked});
 
   @override
-  _AppCheckboxState createState() => _AppCheckboxState();
+  AppCheckboxState createState() => AppCheckboxState();
 }
 
-class _AppCheckboxState extends State<AppCheckbox> {
+class AppCheckboxState extends State<AppCheckbox> {
   bool? _checked = false;
 
   void _onChecked(bool? checked) {
-    print(checked);
+    debugPrint(checked as String?);
     setState(() {
       _checked = checked;
     });

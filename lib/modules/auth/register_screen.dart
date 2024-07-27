@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_bursar_android/modules/auth/auth.dart';
-import 'package:mobile_bursar_android/services/auth_service.dart';
 import 'package:mobile_bursar_android/shared/shared.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -12,10 +11,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class RegisterScreenState extends State<RegisterScreen> {
-  final _usernameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final AuthService _authService = AuthService();
   final AuthController controller = Get.arguments;
 
   @override
@@ -57,7 +52,7 @@ class RegisterScreenState extends State<RegisterScreen> {
               validator: (value) {
                 RegExp regex = RegExp(userNamePattern);
                 if (!regex.hasMatch(value!)) {
-                  return 'Username length is 4 to 12. Only allows English alphabet letters, numbers, dash, and underscore; and cannot begin with a number.';
+                  return 'Username length is 4 to 12 characters, may only contain English alphabet\nletters, numbers, dash, and underscore; and cannot begin with a number.';
                 }
                 if (value.isEmpty) {
                   return 'Username is required.';
@@ -132,32 +127,11 @@ class RegisterScreenState extends State<RegisterScreen> {
               // onPressed: _register,
               onPressed: () {
                 controller.register(context);
-                _register;
               },
-              // onPressed: () {
-              //   controller.register(context);
-              // },
             ),
           ],
         ),
       ),
     );
-  }
-
-  void _register() async {
-    final userName = _usernameController.text;
-    final email = _emailController.text;
-    final password = _passwordController.text;
-
-    try {
-      final response = await _authService.register(userName, email, password);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(response['message'])),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Registration failed: $e')),
-      );
-    }
   }
 }

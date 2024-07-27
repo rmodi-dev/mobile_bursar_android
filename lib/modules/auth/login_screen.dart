@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:mobile_bursar_android/modules/auth/auth_controller.dart';
-import 'package:mobile_bursar_android/modules/home/student_home_screen.dart';
-import 'package:mobile_bursar_android/services/auth_service.dart';
 import 'package:mobile_bursar_android/shared/shared.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -14,9 +12,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final AuthService _authService = AuthService();
   final AuthController controller = Get.arguments;
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
@@ -62,7 +57,7 @@ class LoginScreenState extends State<LoginScreen> {
                   return 'Username is required.';
                 }
                 if (!regex.hasMatch(value)) {
-                  return 'Username length should be 4 to 12 characters, may only contain English alphabet letters, numbers, dash, and underscore; and cannot begin with a number.';
+                  return 'Username length is 4 to 12 characters, may only contain English alphabet\nletters, numbers, dash, and underscore; and cannot begin with a number.';
                 }
                 return null;
               },
@@ -96,33 +91,5 @@ class LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  void login() async {
-    final userName = _usernameController.text;
-    final password = _passwordController.text;
-
-    try {
-      final response = await _authService.login(userName, password);
-      if (response['token']) {
-        await secureStorage.write(key: 'token', value: response['token']);
-        debugPrint('Login screen login successful!');
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Login successful')),
-        );
-        // Navigate to StudentListScreen using GetX
-        Get.off(() => const StudentHomeScreen());
-      } else {
-        debugPrint('Login screen login failed!');
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Login failed')),
-        );
-      }
-    } catch (e) {
-      debugPrint('Login screen login caught an error: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Login failed: $e')),
-      );
-    }
   }
 }

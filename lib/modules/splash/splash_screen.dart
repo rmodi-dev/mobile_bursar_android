@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_bursar_android/routes/routes.dart';
 import 'package:mobile_bursar_android/shared/shared.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../routes/app_pages.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

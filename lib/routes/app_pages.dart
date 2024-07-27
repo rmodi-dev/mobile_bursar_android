@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:mobile_bursar_android/modules/auth/auth.dart';
+import 'package:mobile_bursar_android/modules/home/student_home.dart';
 import 'package:mobile_bursar_android/modules/modules.dart';
 
 part 'app_routes.dart';

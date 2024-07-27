@@ -2,9 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:mobile_bursar_android/api/api_repository.dart';
 import 'package:mobile_bursar_android/services/student_service.dart';
-
-import '../../api/api_repository.dart';
 
 class StudentHomeController extends GetxController {
   final StudentService studentService = StudentService();
@@ -26,7 +25,6 @@ class StudentHomeController extends GetxController {
     try {
       var fetchedStudents = await apiRepository.getStudents();
       students.assignAll(fetchedStudents);
-      debugPrint('Student Home Controller fetched students: $fetchedStudents.');
       debugPrint('Student Home Controller assigned students: $students.');
     } catch (e) {
       debugPrint('Student Home Controller Error fetching students: $e');

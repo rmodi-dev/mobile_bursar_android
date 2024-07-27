@@ -1,2 +1,2 @@
-export 'home/student_home.dart';
+export 'auth/auth.dart';
 export 'splash/splash.dart';

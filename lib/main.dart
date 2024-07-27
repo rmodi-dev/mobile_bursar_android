@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:mobile_bursar_android/app_binding.dart';
+import 'package:mobile_bursar_android/di.dart';
+import 'package:mobile_bursar_android/routes/routes.dart';
 import 'package:mobile_bursar_android/shared/shared.dart';
-
-import 'app_binding.dart';
-import 'di.dart';
-import 'routes/routes.dart';
-import 'theme/theme.dart';
+import 'package:mobile_bursar_android/theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,13 +39,10 @@ void configLoading() {
   EasyLoading.instance
     ..indicatorType = EasyLoadingIndicatorType.threeBounce
     ..loadingStyle = EasyLoadingStyle.custom
-    // ..indicatorSize = 45.0
     ..radius = 10.0
-    // ..progressColor = Colors.yellow
     ..backgroundColor = ColorConstants.lightGray
     ..indicatorColor = hexToColor('#64DEE0')
     ..textColor = hexToColor('#64DEE0')
-    // ..maskColor = Colors.red
     ..userInteractions = false
     ..dismissOnTap = false
     ..animationStyle = EasyLoadingAnimationStyle.scale;

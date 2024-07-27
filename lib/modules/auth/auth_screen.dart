@@ -13,22 +13,7 @@ class AuthScreen extends GetView<AuthController> {
       canPop: false,
       onPopInvoked: (didPop) {},
       child: Scaffold(
-        backgroundColor: const Color(0xFF3CD7BA), //Background color
-
-        // backgroundColor: Colors.cyanAccent,
-
-        // body: Container(
-        // decoration: const BoxDecoration(
-        // gradient: LinearGradient(
-        // colors: [Colors.blueAccent, Colors.redAccent],
-        // begin: Alignment.topLeft,
-        // end: Alignment.bottomRight,
-        // ),
-        // ),
-        // child: Center(
-        // child: _buildItems(context),
-        // ),
-
+        backgroundColor: const Color(0xFF3CD7BA),
         body: Center(
           child: _buildItems(context),
         ),

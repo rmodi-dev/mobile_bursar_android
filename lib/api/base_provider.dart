@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-
-import 'api.dart';
+import 'package:mobile_bursar_android/api/api.dart';
 
 class BaseProvider extends GetConnect {
   @override

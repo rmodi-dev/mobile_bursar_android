@@ -9,8 +9,10 @@ class InputField extends StatelessWidget {
   final double fontSize;
   final bool password;
   final String? Function(String?)? validator;
+  final InputDecoration? decoration;
 
-  const InputField({super.key, 
+  const InputField({
+    super.key,
     required this.controller,
     this.keyboardType = TextInputType.text,
     this.labelText = '',
@@ -19,41 +21,43 @@ class InputField extends StatelessWidget {
     this.fontSize = 22.0,
     this.password = false,
     this.validator,
+    this.decoration,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: InputDecoration(
-        fillColor: Colors.transparent,
-        contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: color,
+      decoration: decoration ??
+          InputDecoration(
+            fillColor: Colors.transparent,
+            contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: color,
+              ),
+            ),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: color,
+              ),
+            ),
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            labelText: labelText,
+            labelStyle: TextStyle(
+              fontSize: fontSize - 2,
+              color: color,
+              height: 0.2,
+              fontWeight: FontWeight.normal,
+            ),
+            hintText: placeholder,
+            hintStyle: TextStyle(
+              fontSize: fontSize,
+              color: color,
+              fontWeight: FontWeight.normal,
+            ),
+            filled: true,
+            isDense: true,
           ),
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: color,
-          ),
-        ),
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        labelText: labelText,
-        labelStyle: TextStyle(
-          fontSize: fontSize - 2,
-          color: color,
-          height: 0.2,
-          fontWeight: FontWeight.normal,
-        ),
-        hintText: placeholder,
-        hintStyle: TextStyle(
-          fontSize: fontSize,
-          color: color,
-          fontWeight: FontWeight.normal,
-        ),
-        filled: true,
-        isDense: true,
-      ),
       controller: controller,
       style: TextStyle(
         color: color,

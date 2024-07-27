@@ -30,7 +30,6 @@ void handleErrorStatus(Response response) {
   //     break;
   //   default:
   // }
-
   return;
 }
 

@@ -6,17 +6,18 @@ import 'focused_menu_details.dart';
 class FocusedMenuHolder extends StatefulWidget {
   final Widget child, menuContent;
 
-  const FocusedMenuHolder({super.key, 
+  const FocusedMenuHolder({
+    super.key,
     // Key? key,
     required this.child,
     required this.menuContent,
   });
 
   @override
-  _FocusedMenuHolderState createState() => _FocusedMenuHolderState();
+  FocusedMenuHolderState createState() => FocusedMenuHolderState();
 }
 
-class _FocusedMenuHolderState extends State<FocusedMenuHolder> {
+class FocusedMenuHolderState extends State<FocusedMenuHolder> {
   GlobalKey containerKey = GlobalKey();
   Offset childOffset = const Offset(0, 0);
   late Size childSize;

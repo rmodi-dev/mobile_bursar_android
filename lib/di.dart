@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-
-import 'shared/services/services.dart';
+import 'package:mobile_bursar_android/shared/services/services.dart';
 
 class DependencyInjection {
   static Future<void> init() async {

@@ -10,7 +10,7 @@ class IconTitleItem extends StatelessWidget {
     required this.icon,
     this.backgroundColor = Colors.transparent,
     this.paddingTop = 8,
-    this.padingBottom = 8,
+    this.paddingBottom = 8,
     this.paddingLeft = 16,
     this.paddingRight = 32,
     this.marginTop = 0,
@@ -25,7 +25,7 @@ class IconTitleItem extends StatelessWidget {
   final String title;
   final Color backgroundColor;
 
-  final double paddingLeft, paddingTop, paddingRight, padingBottom;
+  final double paddingLeft, paddingTop, paddingRight, paddingBottom;
   final double marginLeft, marginTop, marginRight, marginBottom;
   final double drawablePadding;
 
@@ -43,14 +43,17 @@ class IconTitleItem extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(11)),
           child: Padding(
             padding: EdgeInsets.fromLTRB(
-                paddingLeft, paddingTop, paddingRight, padingBottom),
+                paddingLeft, paddingTop, paddingRight, paddingBottom),
             child: Row(
               children: [
                 SvgPicture.asset(
                   icon,
                   width: 25,
                   height: 25,
-                  color: ColorConstants.secondaryAppColor,
+                  colorFilter: ColorFilter.mode(
+                    ColorConstants.secondaryAppColor,
+                    BlendMode.srcIn,
+                  ),
                 ),
                 SizedBox(
                   width: drawablePadding,
